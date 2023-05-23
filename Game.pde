@@ -7,6 +7,8 @@ PVector dir = new PVector (0,0);
 
 int size = 30;
 boolean rotate;
+boolean canLeft;
+boolean canRight;
 
 void setup() {
   size(720, 720);
@@ -19,10 +21,10 @@ void draw() {
   strokeWeight(3);
   grid.print();
   drawPiece();
-  
+  updatePiece();
   
   if(frameCount % gameSpd == 0) {
-    updatePiece();
+    //moveDown();
   }
 }
 
@@ -36,10 +38,46 @@ void drawPiece() {
   }
 }
 
-void updatePiece() {
-  // add keypress direction
+void moveDown() {
+  // move piece down
   for (int i = 0; i < piece.shape.length; i++) {
-    piece.shape[i].add(dir);
+    piece.shape[i].add(down);
+  }
+}
+
+void updatePiece() {
+  if (dir.equals(new PVector(-1, 0))) {  // if left move is tried
+    canLeft = true;
+    
+    for (int i = 0; i < piece.shape.length; i++) { // checks if left move is possible and updates canLeft accordingly
+      if (piece.shape[i].x == 0) {
+        canLeft = false;
+        break;
+      }
+    }
+    
+    if (canLeft == true) {
+      for (int j = 0; j < piece.shape.length; j++) {
+        piece.shape[j].add(dir);
+      }
+    }
+  }
+  
+  if (dir.equals(new PVector(1, 0))) {  // if right move is tried
+    canRight = true;
+    
+    for (int i = 0; i < piece.shape.length; i++) { // checks if right move is possible and updates canRight accordingly
+      if (piece.shape[i].x == 11) {
+        canRight = false;
+        break;
+      }
+    }
+    
+    if (canRight == true) {
+      for (int j = 0; j < piece.shape.length; j++) {
+        piece.shape[j].add(dir);
+      }
+    }
   }
   
   // reset dir
@@ -47,23 +85,14 @@ void updatePiece() {
   
   // rotate if possible
   if (rotate == true) {
-    for (int i = 0; i < piece.shape.length; i++) {
-      PVector original = piece.shape[i].copy();
-      piece.shape[i] = new PVector(original.y, original.x);
-    }
   }
   
   // reset rotate
   rotate = false;
   
-  //// move piece down
-  //for (int i = 0; i < piece.shape.length; i++) {
-  //  piece.shape[i].add(down);
-  //}
-  
 }
 
-void checkRowFull() {}
+void colli {}
 
 void reset() {}
 

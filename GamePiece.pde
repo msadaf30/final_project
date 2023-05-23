@@ -42,4 +42,5 @@ public class GamePiece {
     isActive = false;
   }
   
+  void rotate() {}
 }
