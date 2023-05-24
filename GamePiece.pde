@@ -29,6 +29,9 @@ public class GamePiece {
   // boolean dicates whether the piece is still moving or has been set in place
   boolean isActive;
   
+  // int indicates how many times the piece has rotated;
+  int rotCount;
+  
   public GamePiece() {
     int rand = (int) random(7);
     shape = allPieces[rand];
@@ -43,4 +46,11 @@ public class GamePiece {
   }
   
   void rotate() {}
+  
+  void print() {
+    for (int i = 0; i < shape.length; i++) {
+      rect(shape[i].x * 30, shape[i].y * 30, 30, 30);
+    }
+  }
+  
 }
