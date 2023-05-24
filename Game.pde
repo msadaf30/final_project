@@ -46,6 +46,21 @@ void moveDown() {
 
 void updatePiece() {
   
+  //if (dir.equals(new PVector(-1,0) {
+  //  for (int i = 0; i < grid.deadPieces.size(); i++) {
+  //    GamePiece dead = grid.deadPieces.get(i);
+  //    for (int j = 0; j < dead.shape.length; j++) {
+  //      for (int k = 0; k < piece.shape.length; k++) {
+  //        if (piece.shape[k] == 0 || piece.shape.length[k].x == dead.shape[j].x - 1) {
+  //          dir = new PVector(0,0);
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
+  
+  //if (dir.equals(new PVector(1, 0) {}
+  
   for (int i = 0; i < piece.shape.length; i++) {
     if (piece.shape[i].x == 0 && dir.equals(new PVector(-1, 0))) {  // if shape is at x = 0 and LEFT is pressed
       dir = new PVector(0,0);                                       // nullifies the left dir
