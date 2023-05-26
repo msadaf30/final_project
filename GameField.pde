@@ -2,7 +2,7 @@ public class GameField {
   
    float w;
    int size = 30;
-   ArrayList<GamePiece> deadPieces = new ArrayList<GamePiece>();
+   ArrayList<Block> deadBlocks = new ArrayList<Block>();
    
    public GameField(){
        w = width/24;
@@ -18,15 +18,16 @@ public class GameField {
      }
      
      // draws unmoving pieces
-     for(int i = 0; i < deadPieces.size(); i++) {
-       GamePiece piece = deadPieces.get(i);
-       fill(piece.r, piece.g, piece.b);
-       piece.print();
+     for(int i = 0; i < deadBlocks.size(); i++) {
+       Block block = deadBlocks.get(i);
+       fill(block.r, block.g, block.b);
+       block.print();
      }
    }
    
    void addPiece(GamePiece piece) {
-     piece.changeStatus();
-     deadPieces.add(piece);
+     for (int i = 0; i < piece.shape.length; i++) {
+       deadBlocks.add(piece.shape[i]);
+     }
    }
 }
