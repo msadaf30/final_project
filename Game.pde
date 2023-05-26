@@ -23,8 +23,8 @@ void draw() {
   collisionCheck();
   
   if(frameCount % gameSpd == 0) {
-    moveDown();
-    collisionCheck();
+    //moveDown();
+    //collisionCheck();
   }
 }
 
