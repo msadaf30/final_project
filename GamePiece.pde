@@ -58,47 +58,57 @@ public class GamePiece {
     int sumCoord = centerX + centerY;
     int diffCoord = Math.abs(centerY - centerX);
     
-    if (rotCount % 4 == 0) {
-      for (int i = 0; i < shape.length; i++) {
-        int x = (int) originalShape[i].square.x;
-        int y = (int) originalShape[i].square.y;
-        
-        int newX = y - diffCoord;
-        int newY = -x + sumCoord;
-        shape[i].square = new PVector(newX, newY);
-      }
+ 
+    for (int i = 0; i < shape.length; i++) {
+      int x = (int) originalShape[i].square.x;
+      int y = (int) originalShape[i].square.y;
+      
+      int newX = y - diffCoord;
+      int newY = -x + sumCoord;
+      shape[i].square = new PVector(newX, newY);
     }
-    else if (rotCount % 4 == 1) {
-      for (int i = 0; i < shape.length; i++) {
-        int x = (int) originalShape[i].square.x;
-        int y = (int) originalShape[i].square.y;
+    
+  //  if (rotCount % 4 == 0) {
+  //    for (int i = 0; i < shape.length; i++) {
+  //      int x = (int) originalShape[i].square.x;
+  //      int y = (int) originalShape[i].square.y;
         
-        int newX = -x;
-        int newY = -y + sumCoord;
-        shape[i].square = new PVector(newX, newY);
-      }
-    }
-    else if (rotCount % 4 == 2) {
-      for (int i = 0; i < shape.length; i++) {
-        int x = (int) originalShape[i].square.x;
-        int y = (int) originalShape[i].square.y;
+  //      int newX = y - diffCoord;
+  //      int newY = -x + sumCoord;
+  //      shape[i].square = new PVector(newX, newY);
+  //    }
+  //  }
+  //  else if (rotCount % 4 == 1) {
+  //    for (int i = 0; i < shape.length; i++) {
+  //      int x = (int) originalShape[i].square.x;
+  //      int y = (int) originalShape[i].square.y;
         
-        int newX = y - centerX;
-        int newY = x - centerY;
-        shape[i].square = new PVector(newX, newY);
-      }
-    }
-    else if (rotCount % 4 == 3) {
-      for (int i = 0; i < shape.length; i++) {
-        int x = (int) originalShape[i].square.x;
-        int y = (int) originalShape[i].square.y;
+  //      int newX = -x;
+  //      int newY = -y + sumCoord;
+  //      shape[i].square = new PVector(newX, newY);
+  //    }
+  //  }
+  //  else if (rotCount % 4 == 2) {
+  //    for (int i = 0; i < shape.length; i++) {
+  //      int x = (int) originalShape[i].square.x;
+  //      int y = (int) originalShape[i].square.y;
         
-        int newX = x - centerX;
-        int newY = y - centerY;
-        shape[i].square = new PVector(newX, newY);
-      }
-    }
-    rotCount++;
+  //      int newX = y - centerX;
+  //      int newY = x - centerY;
+  //      shape[i].square = new PVector(newX, newY);
+  //    }
+  //  }
+  //  else if (rotCount % 4 == 3) {
+  //    for (int i = 0; i < shape.length; i++) {
+  //      int x = (int) originalShape[i].square.x;
+  //      int y = (int) originalShape[i].square.y;
+        
+  //      int newX = x - centerX;
+  //      int newY = y - centerY;
+  //      shape[i].square = new PVector(newX, newY);
+  //    }
+  //  }
+  //  rotCount++;
   }
   
   void print() {
