@@ -23,9 +23,11 @@ void draw() {
   collisionCheck();
   
   if(frameCount % gameSpd == 0) {
-    //moveDown();
-    //collisionCheck();
+    moveDown();
+    collisionCheck();
   }
+  
+  removeRow();
 }
 
 void newPiece() {
@@ -128,6 +130,24 @@ void collisionCheck() {
   if (result == true) {
     grid.addPiece(piece);
     newPiece();
+  }
+}
+
+void removeRow() {
+  for (int i = 0; i < 24; i++) {
+    if (grid.checkRowFull(i)) {
+      for (int j = 0; j < grid.deadBlocks.size(); j++) {
+        if (grid.deadBlocks.get(j).square.y == i) {
+          grid.deadBlocks.remove(j);
+          j--;
+        }
+      }
+      for (int k = 0; k < grid.deadBlocks.size(); k++) {
+        if (grid.deadBlocks.get(k).square.y < i) {
+          grid.deadBlocks.get(k).square.add(down);
+        }
+      }
+    }
   }
 }
 

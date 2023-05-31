@@ -33,7 +33,7 @@ public class GamePiece {
   
   public GamePiece() {
     int rand = (int) random(7);
-    PVector[] blocks = allPieces[rand];
+    PVector[] blocks = allPieces[2];
     int r = colors[rand][0];
     int g = colors[rand][1];
     int b = colors[rand][2];
@@ -60,13 +60,15 @@ public class GamePiece {
     
  
     for (int i = 0; i < shape.length; i++) {
-      int x = (int) originalShape[i].square.x;
-      int y = (int) originalShape[i].square.y;
+      int x = (int) shape[i].square.x;
+      int y = (int) shape[i].square.y;
       
-      int newX = y - diffCoord;
+      int newX = y + diffCoord;
       int newY = -x + sumCoord;
       shape[i].square = new PVector(newX, newY);
     }
+    
+    
     
   //  if (rotCount % 4 == 0) {
   //    for (int i = 0; i < shape.length; i++) {

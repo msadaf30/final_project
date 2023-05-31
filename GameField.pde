@@ -34,7 +34,11 @@ public class GameField {
    boolean checkRowFull(int row) {
      int rowMembers = 0;
      for (int i = 0; i < deadBlocks.size(); i++) {
-       if (deadBlocks.get(i).square.y
+       if (deadBlocks.get(i).square.y == row) {
+         rowMembers++;
+       }
      }
+     if (rowMembers == 12) return true;
+     else return false;
    }
 }
