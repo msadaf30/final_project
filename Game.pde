@@ -1,12 +1,17 @@
 // variables
 GameField grid;
 GamePiece piece;
-int gameSpd = 20;
+GamePiece nextPiece;
+
+int gameSpd = 10;
 PVector down = new PVector (0,1);
 PVector dir = new PVector (0,0);
-
 int size = 30;
+int score = 0;
+
 boolean rotate;
+boolean mainMenu;
+
 
 void setup() {
   size(720, 720);
@@ -27,7 +32,7 @@ void draw() {
     collisionCheck();
   }
   
-  removeRow();
+  clearAndScore();
 }
 
 void newPiece() {
@@ -81,17 +86,6 @@ void updatePiece() {
     }
   } 
   
-  //// original code before refactor (doesn't include collision with deadBlocks)
-  //for (int i = 0; i < piece.shape.length; i++) {
-  //  if (piece.shape[i].square.x == 0 && dir.equals(new PVector(-1, 0))) {  // if shape is at x = 0 and LEFT is pressed
-  //    dir = new PVector(0,0);                                       // nullifies the left dir
-  //  }
-    
-  //  if (piece.shape[i].square.x == 11 && dir.equals(new PVector(1, 0))) {  // if shape is at x = 11 and RIGHT is pressed
-  //    dir = new PVector (0,0);                                      // nullifies the right dir
-  //  }
-  //}
-  
   // add dir
   piece.movePiece(dir);
   
@@ -133,9 +127,12 @@ void collisionCheck() {
   }
 }
 
-void removeRow() {
+void clearAndScore() {
+  int rowCount = 0;
+  
   for (int i = 0; i < 24; i++) {
     if (grid.checkRowFull(i)) {
+      rowCount++;
       for (int j = 0; j < grid.deadBlocks.size(); j++) {
         if (grid.deadBlocks.get(j).square.y == i) {
           grid.deadBlocks.remove(j);
@@ -147,6 +144,9 @@ void removeRow() {
           grid.deadBlocks.get(k).square.add(down);
         }
       }
+      if (rowCount > 4) rowCount = 4;
+      
+      if (rowCount == 1) score += 40;
     }
   }
 }
