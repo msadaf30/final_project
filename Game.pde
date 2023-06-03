@@ -3,11 +3,12 @@ GameField grid;
 GamePiece piece;
 GamePiece nextPiece;
 
-int gameSpd = 10;
+int gameSpd = 20;
 PVector down = new PVector (0,1);
 PVector dir = new PVector (0,0);
 int size = 30;
 int score = 0;
+int highScore = 0;
 
 boolean rotate;
 boolean mainMenu;
@@ -23,6 +24,7 @@ void draw() {
   background(0);
   strokeWeight(3);
   grid.print();
+  showScore();
   drawPiece();
   updatePiece();
   collisionCheck();
@@ -133,25 +135,40 @@ void clearAndScore() {
   for (int i = 0; i < 24; i++) {
     if (grid.checkRowFull(i)) {
       rowCount++;
+      
       for (int j = 0; j < grid.deadBlocks.size(); j++) {
         if (grid.deadBlocks.get(j).square.y == i) {
           grid.deadBlocks.remove(j);
           j--;
         }
       }
+      
       for (int k = 0; k < grid.deadBlocks.size(); k++) {
         if (grid.deadBlocks.get(k).square.y < i) {
           grid.deadBlocks.get(k).square.add(down);
         }
       }
+      
       if (rowCount > 4) rowCount = 4;
       
       if (rowCount == 1) score += 40;
+      else if (rowCount == 2) score += 100;
+      else if (rowCount == 3) score += 300;
+      else if (rowCount == 4) score += 1000;
     }
   }
 }
 
+void showScore() {
+  textSize(128);
+  text(score, 400, 100);
+}
+
 void reset() {}
+
+void mainMenu() {
+  
+}
 
 void keyPressed() {
   if (key == CODED) {
