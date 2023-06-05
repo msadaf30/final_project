@@ -18,23 +18,27 @@ void setup() {
   size(720, 720);
   grid = new GameField();
   newPiece();
+  mainMenu = true;
 }
   
 void draw() {
   background(0);
   strokeWeight(3);
   grid.print();
-  showScore();
-  drawPiece();
-  updatePiece();
-  collisionCheck();
-  
-  if(frameCount % gameSpd == 0) {
-    moveDown();
+  mainMenu();
+  if (mainMenu != true) {
+    showScore();
+    
+    if(frameCount % gameSpd == 0) {
+      moveDown();
+      collisionCheck();
+    }
+    
+    drawPiece();
+    updatePiece();
     collisionCheck();
+    clearAndScore();
   }
-  
-  clearAndScore();
 }
 
 void newPiece() {
@@ -50,7 +54,6 @@ void moveDown() {
 }
 
 void updatePiece() {
-  
   // if left, checks that piece is not touching left border
   if (dir.equals(new PVector(-1, 0))) {
     for (int i = 0; i < piece.shape.length; i++) {
@@ -148,30 +151,40 @@ void clearAndScore() {
           grid.deadBlocks.get(k).square.add(down);
         }
       }
-      
-      if (rowCount > 4) rowCount = 4;
-      
-      if (rowCount == 1) score += 40;
-      else if (rowCount == 2) score += 100;
-      else if (rowCount == 3) score += 300;
-      else if (rowCount == 4) score += 1000;
+    }
+  }
+  if (rowCount > 4) rowCount = 4;
+  
+  if (rowCount == 1) score += 40;
+  else if (rowCount == 2) score += 100;
+  else if (rowCount == 3) score += 300;
+  else if (rowCount == 4) score += 1000;
+}
+
+void showScore() {
+  textSize(64);
+  fill(200,200,200);
+  text("Score: " + score, 400, 100);
+}
+
+void mainMenu() {
+  if (mainMenu) {
+      for (int i = 0; i < 100; i++) {
+      int rand1 = (int) random(100, 250);
+      int rand2 = (int) random(100, 250);
+      int rand3 = (int) random(100, 250);
+      textSize(100);
+      fill(rand1,rand2,rand3);
+      text("TETRIS", 400, 100);
     }
   }
 }
 
-void showScore() {
-  textSize(128);
-  text(score, 400, 100);
-}
-
-void reset() {}
-
-void mainMenu() {
-  
-}
-
 void keyPressed() {
   if (key == CODED) {
+    if (keyCode == UP) {
+      rotate = true;
+    }
     if (keyCode == LEFT) {
       dir = new PVector(-1, 0);
     }
@@ -186,9 +199,11 @@ void keyPressed() {
 
 void keyReleased() {
   if (key == CODED) {
-    if (keyCode == UP) {
-      rotate = true;
-    }
+    
   }
+}
+
+void mouseClicked() {
+  mainMenu = false;
 }
   
