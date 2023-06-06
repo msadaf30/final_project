@@ -3,7 +3,7 @@ GameField grid;
 GamePiece piece;
 GamePiece nextPiece;
 
-int gameSpd = 20;
+int gameSpd = 0;
 PVector down = new PVector (0,1);
 PVector dir = new PVector (0,0);
 int size = 30;
@@ -12,7 +12,6 @@ int highScore = 0;
 
 boolean rotate;
 boolean mainMenu;
-
 
 void setup() {
   size(720, 720);
@@ -28,15 +27,15 @@ void draw() {
   if (mainMenu) mainMenu();
   else {
     showScore();
+    drawPiece();
+    updatePiece();
+    collisionCheck();
     
     if(frameCount % gameSpd == 0) {
       moveDown();
       collisionCheck();
     }
     
-    drawPiece();
-    updatePiece();
-    collisionCheck();
     clearAndScore();
   }
 }
@@ -162,15 +161,16 @@ void clearAndScore() {
 }
 
 void showScore() {
-  textSize(64);
+  textSize(52);
   fill(200,200,200);
-  text("Score: " + score, 400, 100);
+  text("Score: " + score, 380, 75);
+  text("High Score: " + highScore, 380, 150);
 }
 
 void mainMenu() {
   textSize(100);
   fill(200, 200, 200);
-  text("TETRIS", 400, 150);
+  text("TETRIS!", 380, 150);
   textSize(48);
   text("Choose your", 420, 250);
   text("difficulty", 450, 300);
@@ -187,9 +187,6 @@ void mainMenu() {
 
 void keyPressed() {
   if (key == CODED) {
-    if (keyCode == UP) {
-      rotate = true;
-    }
     if (keyCode == LEFT) {
       dir = new PVector(-1, 0);
     }
@@ -204,11 +201,25 @@ void keyPressed() {
 
 void keyReleased() {
   if (key == CODED) {
-    
+    if (keyCode == UP) {
+      rotate = true;
+    }
   }
 }
 
 void mouseClicked() {
-  mainMenu = false;
+  if ((420 <= mouseX && mouseX <= 660) && (350 <= mouseY && mouseY <= 410)) {
+    gameSpd = 20;
+    mainMenu = false;
+  }
+  else if ((420 <= mouseX && mouseX <= 660) && (460 <= mouseY && mouseY <= 520)) {
+    gameSpd = 14;
+    mainMenu = false;
+  }
+  else if ((420 <= mouseX && mouseX <= 660) && (570 <= mouseY && mouseY <= 630)) {
+    gameSpd = 8;
+    mainMenu = false;
+  }
+  else{}
 }
   
