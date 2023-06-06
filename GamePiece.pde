@@ -15,13 +15,13 @@ public class GamePiece {
   // Array of colors (each shape has its own designated color)
   private final int[][] colors = 
   {
-    {250, 0, 0},     //square
-    {0, 200, 0},     //bar
-    {100, 180, 100}, //tBone
-    {250, 155, 0},   //leftL
-    {250, 80, 205},  //rightL
-    {155, 0, 155},   //leftS
-    {175, 205, 100}  //rightS
+    {210, 210, 0},     //square
+    {100, 250, 250},     //bar
+    {150, 0, 150}, //tBone
+    {0, 100, 200},   //leftL
+    {250, 150, 50},  //rightL
+    {250, 50, 250},   //leftS
+    {0, 200, 100}  //rightS
   };
   
   // array of blocks

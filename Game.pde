@@ -25,8 +25,8 @@ void draw() {
   background(0);
   strokeWeight(3);
   grid.print();
-  mainMenu();
-  if (mainMenu != true) {
+  if (mainMenu) mainMenu();
+  else {
     showScore();
     
     if(frameCount % gameSpd == 0) {
@@ -168,16 +168,21 @@ void showScore() {
 }
 
 void mainMenu() {
-  if (mainMenu) {
-      for (int i = 0; i < 100; i++) {
-      int rand1 = (int) random(100, 250);
-      int rand2 = (int) random(100, 250);
-      int rand3 = (int) random(100, 250);
-      textSize(100);
-      fill(rand1,rand2,rand3);
-      text("TETRIS", 400, 100);
-    }
-  }
+  textSize(100);
+  fill(200, 200, 200);
+  text("TETRIS", 400, 150);
+  textSize(48);
+  text("Choose your", 420, 250);
+  text("difficulty", 450, 300);
+  
+  rect(420, 350, 240, 60);
+  rect(420, 460, 240, 60);
+  rect(420, 570, 240, 60);
+  
+  fill(0,0,0);
+  text("Slow", 490, 400);
+  text("Normal", 465, 510);
+  text("Hard", 490, 620);
 }
 
 void keyPressed() {
