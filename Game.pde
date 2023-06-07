@@ -25,6 +25,9 @@ void draw() {
   strokeWeight(3);
   grid.print();
   if (mainMenu) mainMenu();
+  else if (death()) {
+      deathMenu();
+  }
   else {
     showScore();
     drawPiece();
@@ -161,7 +164,7 @@ void clearAndScore() {
 }
 
 void showScore() {
-  textSize(52);
+  textSize(42);
   fill(200,200,200);
   text("Score: " + score, 380, 75);
   text("High Score: " + highScore, 380, 150);
@@ -183,6 +186,43 @@ void mainMenu() {
   text("Slow", 490, 400);
   text("Normal", 465, 510);
   text("Hard", 490, 620);
+}
+
+boolean death() {
+  for (int i = 0; i < grid.deadBlocks.size(); i++) {
+    if (grid.deadBlocks.get(i).square.y == 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void deathMenu() {
+  textSize(100);
+  fill(200,200,200);
+  
+  text("GAME", 400, 150);
+  text("OVER", 400, 250);
+  
+  if (score > highScore) {
+    textSize(50);
+    //highScore = score;
+    text("New High Score!", 370, 300);
+    //text(highScore + "points!", 370, 360);
+  }
+  
+  else {
+    text("score", );
+  }
+  
+  rect(420, 450, 240, 60);
+  rect(420, 560, 240, 60);
+  
+  textSize(48);
+  fill(0, 0, 0);
+  text("Restart", 480, 500);
+  text("Main Menu", 435, 610);
+  
 }
 
 void keyPressed() {
@@ -208,18 +248,33 @@ void keyReleased() {
 }
 
 void mouseClicked() {
-  if ((420 <= mouseX && mouseX <= 660) && (350 <= mouseY && mouseY <= 410)) {
-    gameSpd = 20;
-    mainMenu = false;
+  if (mainMenu) {
+    if ((420 <= mouseX && mouseX <= 660) && (350 <= mouseY && mouseY <= 410)) {
+      gameSpd = 20;
+      mainMenu = false;
+    }
+    else if ((420 <= mouseX && mouseX <= 660) && (460 <= mouseY && mouseY <= 520)) {
+      gameSpd = 14;
+      mainMenu = false;
+    }
+    else if ((420 <= mouseX && mouseX <= 660) && (570 <= mouseY && mouseY <= 630)) {
+      gameSpd = 8;
+      mainMenu = false;
+    }
   }
-  else if ((420 <= mouseX && mouseX <= 660) && (460 <= mouseY && mouseY <= 520)) {
-    gameSpd = 14;
-    mainMenu = false;
-  }
-  else if ((420 <= mouseX && mouseX <= 660) && (570 <= mouseY && mouseY <= 630)) {
-    gameSpd = 8;
-    mainMenu = false;
-  }
-  else{}
+  
+  //else if (death()) {
+  //  if ((420 <= mouseX && mouseX <= 660) && (350 <= mouseY && mouseY <= 410)) {
+  //    grid = new GameField();
+  //    newPiece();
+  //    gameOver = false;
+  //  }
+    
+  //  else if ((420 <= mouseX && mouseX <= 660) && (460 <= mouseY && mouseY <= 520)) {
+      
+  //    gameOver = false;
+  //  }
+    
+  //}
 }
   

@@ -30,7 +30,7 @@ public class GamePiece {
   
   public GamePiece() {
     int rand = (int) random(7);
-    PVector[] blocks = allPieces[rand];
+    PVector[] blocks = allPieces[1];
     int r = colors[rand][0];
     int g = colors[rand][1];
     int b = colors[rand][2];
