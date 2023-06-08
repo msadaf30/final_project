@@ -16,7 +16,8 @@ boolean mainMenu;
 void setup() {
   size(720, 720);
   grid = new GameField();
-  newPiece();
+  piece = new GamePiece();
+  nextPiece = new GamePiece();
   mainMenu = true;
 }
   
@@ -24,12 +25,14 @@ void draw() {
   background(0);
   strokeWeight(3);
   grid.print();
+  
   if (mainMenu) mainMenu();
-  else if (death()) {
-      deathMenu();
-  }
+  
+  else if (death()) deathMenu();
+  
   else {
     showScore();
+    drawNextPiece();
     drawPiece();
     updatePiece();
     collisionCheck();
@@ -44,11 +47,23 @@ void draw() {
 }
 
 void newPiece() {
-  piece = new GamePiece();
+  piece = nextPiece;
+  nextPiece = new GamePiece();
 }
 
 void drawPiece() {
   piece.print();
+}
+
+void drawNextPiece() {
+  for (int i = 0; i < nextPiece.shape.length; i++) {
+    Block block = nextPiece.shape[i];
+    int r = block.r;
+    int g = block.g;
+    int b = block.b;
+    fill(r, g, b);
+    rect((block.square.x * size) + 260, (block.square.y * size)+ 260, size, size);
+  }
 }
 
 void moveDown() {
@@ -168,6 +183,7 @@ void showScore() {
   fill(200,200,200);
   text("Score: " + score, 380, 75);
   text("High Score: " + highScore, 380, 150);
+  text("Next piece:", 380, 225);
 }
 
 void mainMenu() {
@@ -201,18 +217,18 @@ void deathMenu() {
   textSize(100);
   fill(200,200,200);
   
-  text("GAME", 400, 150);
-  text("OVER", 400, 250);
+  text("GAME", 400, 125);
+  text("OVER", 400, 225);
   
   if (score > highScore) {
     textSize(50);
-    //highScore = score;
     text("New High Score!", 370, 300);
-    //text(highScore + "points!", 370, 360);
+    text(score + " points!", 430, 360);
   }
   
   else {
-    text("score", );
+    textSize(50);
+    text("Score: " + score, 410, 340);
   }
   
   rect(420, 450, 240, 60);
@@ -220,7 +236,7 @@ void deathMenu() {
   
   textSize(48);
   fill(0, 0, 0);
-  text("Restart", 480, 500);
+  text("Restart", 470, 500);
   text("Main Menu", 435, 610);
   
 }
@@ -263,18 +279,22 @@ void mouseClicked() {
     }
   }
   
-  //else if (death()) {
-  //  if ((420 <= mouseX && mouseX <= 660) && (350 <= mouseY && mouseY <= 410)) {
-  //    grid = new GameField();
-  //    newPiece();
-  //    gameOver = false;
-  //  }
+  else if (death()) {
+    if ((420 <= mouseX && mouseX <= 660) && (450 <= mouseY && mouseY <= 510)) {
+      grid = new GameField();
+      newPiece();
+      if (score > highScore) highScore = score;
+      score = 0;
+    }
     
-  //  else if ((420 <= mouseX && mouseX <= 660) && (460 <= mouseY && mouseY <= 520)) {
-      
-  //    gameOver = false;
-  //  }
+    else if ((420 <= mouseX && mouseX <= 660) && (560 <= mouseY && mouseY <= 620)) {
+      grid = new GameField();
+      newPiece();
+      if (score > highScore) highScore = score;
+      score = 0;
+      mainMenu = true;
+    }
     
-  //}
+  }
 }
   
