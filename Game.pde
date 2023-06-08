@@ -115,8 +115,22 @@ void updatePiece() {
   dir = new PVector(0,0);
   
   // rotate if possible
-  if (rotate == true) {
-    piece.rotate();
+  if (rotate == true) piece.rotate();
+  
+  // rotation collision 
+  for (int i = 0; i < piece.shape.length; i++) {
+    if (piece.shape[i].square.x < 0) {
+      int diff = 0 - (int) piece.shape[i].square.x;
+      for (int j = 0; j < piece.shape.length; j++) {
+        piece.shape[j].square.add(new PVector (diff, 0));
+      }
+    }
+    else if (piece.shape[i].square.x > 11) {
+      int diff = (int) piece.shape[i].square.x - 11;
+      for (int j = 0; j < piece.shape.length; j++) {
+        piece.shape[j].square.add(new PVector(- diff, 0));
+      }
+    }
   }
   
   // reset rotate
